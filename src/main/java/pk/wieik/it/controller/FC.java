@@ -18,8 +18,12 @@ public class FC extends HttpServlet {
 
     public void init() {
         ServletContext context = getServletContext();
+
         List<Comic> comics = Comic.initializeDb();
         context.setAttribute("comics", comics);
+
+        List<FCuser> users = FCuser.initializeDb();
+        context.setAttribute("users", users);
     }
 
     @Override
@@ -62,6 +66,8 @@ public class FC extends HttpServlet {
             session.setAttribute("user", user);
         }
 
+        List<FCuser> users = (List<FCuser>) context.getAttribute("users");
+
         List<Comic> comicsEntries = (List<Comic>) context.getAttribute("comics");
         if (comicsEntries == null) {
             comicsEntries = Comic.initializeDb();
@@ -75,12 +81,12 @@ public class FC extends HttpServlet {
             String[] password = request.getParameterValues("password");
 
             if (username != null && password != null) {
-                if (username[0].equals("user") && password[0].equals("user")) {
-                    user.setPrivileges(1);
-                    user.setLogin(username[0]);
-                } else if (username[0].equals("admin") && password[0].equals("admin")) {
-                    user.setPrivileges(2);
-                    user.setLogin(username[0]);
+                for (FCuser userEntry : users) {
+                    if (username[0].equals(userEntry.getLogin()) && password[0].equals(userEntry.getPassword())) {
+                        user.setPrivileges(userEntry.getPrivileges());
+                        user.setLogin(userEntry.getLogin());
+                        break;
+                    }
                 }
             }
         } else if (page.equals("logout")) {
@@ -142,5 +148,23 @@ public class FC extends HttpServlet {
         }
 
         out.println(template);
+    }
+
+    public FCuser getUser() {
+        FCuser user = (FCuser) getServletContext().getAttribute("user");
+        if (user == null) {
+            user = new FCuser();
+            getServletContext().setAttribute("user", user);
+        }
+        return user;
+    }
+
+    public List<Comic> getComics() {
+        List<Comic> comics = (List<Comic>) getServletContext().getAttribute("comics");
+        if (comics == null) {
+            comics = Comic.initializeDb();
+            getServletContext().setAttribute("comics", comics);
+        }
+        return comics;
     }
 }
