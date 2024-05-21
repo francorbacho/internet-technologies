@@ -1,0 +1,144 @@
+html {
+    background: white;
+}
+
+#container {
+    width: 90%;
+    margin: auto;
+    font-family: "Tahoma", "sans-serif";
+    font-size: 1rem;
+}
+
+#header {
+    width: 100%;
+    background: #ccc;
+    text-align: center;
+    font-size: 2.5rem;
+    height: 150px;
+}
+
+#header h1 {
+    margin: 0;
+    padding-top: 1rem;
+}
+
+#middle {
+    margin-top: 1rem;
+}
+
+#footer {
+    background: #888;
+    color: white;
+    padding: 0.2rem;
+    text-align: center;
+}
+
+#menu {
+    width: 10rem;
+    float: left;
+    margin-bottom: 1rem;
+}
+
+#news {
+    background: #ddd;
+    padding: 0 0.3rem 0.3rem;
+}
+
+#content {
+    background: #ccc;
+    text-align: justify;
+    padding: 0.5rem;
+    margin-left: 11rem;
+    margin-bottom: 1rem;
+}
+
+#login {
+    background: #ccc;
+    margin: 5px 0;
+    padding: 5px;
+}
+
+#login input {
+    width: 100%;
+}
+
+#menu ul {
+    margin: 0;
+    padding: 0;
+}
+
+#menu li {
+    list-style: none;
+    font-size: 90%;
+}
+
+#menu a {
+    text-decoration: none;
+    color: black;
+    background: #eee;
+    padding: 0.3rem;
+    margin-bottom: 0.5rem;
+    display: block;
+    text-align: center;
+    transition: all 0.5s ease-in-out;
+}
+
+#menu a:hover {
+    color: white;
+    background: #888;
+}
+
+#footer {
+    clear: both;
+    background: #888;
+    color: white;
+    padding: 0.2rem;
+    text-align: center;
+}
+
+@media only screen and (max-width: 640px) {
+    #menu {
+        width: 100%;
+        padding: 0;
+    }
+
+    #content {
+        margin-left: 0;
+        clear: both;
+    }
+
+    #news {
+        text-align: center;
+        background: #aaa;
+    }
+
+    #container {
+        min-width: 320px;
+        width: 100%;
+    }
+}
+
+#hamburger {
+    display: none;
+    user-select: none;
+    font-size: 35px;
+    background-color: #ccc;
+}
+
+#hamburger input {
+    appearance: none;
+    padding: 0;
+    margin: 0;
+    outline: none;
+    pointer-events: none;
+}
+
+#hamburger:has(input:checked) + .hamburger-disappear {
+    display: none;
+}
+
+@media only screen and (max-width: 480px) {
+    #hamburger {
+        display: block;
+    }
+}
