@@ -8,10 +8,12 @@
         session.setAttribute("user", user);
     }
     String whatPage = request.getParameter("page");
-    if (user.getPrivileges() == 1) {
-        whatPage = Tools.parsePage(whatPage, "main;third;settings;favourite");
-    } else {
-        whatPage = Tools.parsePage(whatPage, "main;third");
+    if (user.getPrivileges() <= 0) {
+        whatPage = Tools.parsePage(whatPage, "main");
+    } else if (user.getPrivileges() == 1) {
+        whatPage = Tools.parsePage(whatPage, "main;settings;favourite");
+    } else if (user.getPrivileges() == 2) {
+        whatPage = Tools.parsePage(whatPage, "main;settings;favourite;admin;edit");
     }
 %>
 <!DOCTYPE html>

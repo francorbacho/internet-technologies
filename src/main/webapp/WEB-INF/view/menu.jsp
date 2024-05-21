@@ -12,6 +12,10 @@
     <li><a href="?page=main">Library</a></li>
 
     <% if (user.getPrivileges() > 0) { %>
-        <li><a href="?page=settings">Settings</a></li>
+    <li><a href="?page=settings">Settings</a></li>
+    <% } %>
+
+    <% if (user.getPrivileges() == 2) { %>
+    <li><a href="?page=admin">Admin</a></li>
     <% } %>
 </ul>

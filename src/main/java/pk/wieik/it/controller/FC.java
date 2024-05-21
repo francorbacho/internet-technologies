@@ -62,6 +62,12 @@ public class FC extends HttpServlet {
             session.setAttribute("user", user);
         }
 
+        List<Comic> comicsEntries = (List<Comic>) session.getAttribute("comics");
+        if (comicsEntries == null) {
+            comicsEntries = Comic.initializeDb();
+            session.setAttribute("comics", comicsEntries);
+        }
+
         String page = request.getParameter("page");
         System.out.println("page: " + page);
         if (page.equals("login")) {
@@ -94,7 +100,25 @@ public class FC extends HttpServlet {
                 int comicId = Integer.parseInt(comicIdStr);
                 user.toggleFavourite(comicId);
             }
+        } else if (page.equals("edit")) {
+            String[] idList = request.getParameterValues("id");
+            String[] titleList = request.getParameterValues("title");
+            String[] authorList = request.getParameterValues("author");
+            String[] yearList = request.getParameterValues("year");
+
+            String idStr = idList == null ? "0" : idList[0];
+            String title = titleList == null ? "" : titleList[0];
+            String author = authorList == null ? "" : authorList[0];
+            String yearStr = yearList == null ? "" : yearList[0];
+
+            int id = Integer.parseInt(idStr);
+            int year = Integer.parseInt(yearStr);
+
+            Comic comic = new Comic(id, title, author, year, 2024);
+            comicsEntries.set(id, comic);
         }
+
+        System.out.println("page2asd " + request.getContextPath());
 
         response.sendRedirect(request.getContextPath());
     }

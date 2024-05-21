@@ -38,6 +38,9 @@
         <th>Author</th>
         <th>Release Date</th>
         <th>Add to Favorites</th>
+        <% if (user.getPrivileges() == 2) { %>
+        <th>Edit</th>
+        <% } %>
     </tr>
     <%
         String filterYear = request.getParameter("filterYear");
@@ -66,6 +69,11 @@
                 onclick="toggleFavorite('<%= comicEntry.id %>')"
             >
         </td>
+        <% if (user.getPrivileges() == 2) { %>
+        <td>
+            <a href="${pageContext.request.contextPath}?page=edit&id=<%= comicEntry.id %>">Edit</a>
+        </td>
+        <% } %>
     </tr>
     <% }} %>
 </table>
