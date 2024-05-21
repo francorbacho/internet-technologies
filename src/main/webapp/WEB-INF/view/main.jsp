@@ -50,15 +50,16 @@
         boolean showFavourites = showFavoritesStr != null && showFavoritesStr.equals("true");
     %>
 
-    <% for (Comic comicEntry : comicsEntries) {
-        if (showFavourites && !user.getFavourites().contains(comicEntry.id)) {
+    <% for (int comicEntryId = 0; comicEntryId < comicsEntries.size(); comicEntryId++) {
+        Comic comicEntry = comicsEntries.get(comicEntryId);
+        if (showFavourites && !user.getFavourites().contains(comicEntryId)) {
             continue;
         }
 
         if (filterYear == null || filterYear.isEmpty() || filterYear.equals(comicEntry.year + "")) {
     %>
     <tr>
-        <td><%= comicEntry.id %></td>
+        <td><%= comicEntryId %></td>
         <td><%= comicEntry.year %></td>
         <td><%= comicEntry.title %></td>
         <td><%= comicEntry.author %></td>
@@ -66,14 +67,14 @@
         <td>
             <input
                 type="checkbox"
-                <%= user.getFavourites().contains(comicEntry.id) ? "checked=1" : "" %>
+                <%= user.getFavourites().contains(comicEntryId) ? "checked=1" : "" %>
                 <%= user.getPrivileges() != 1 ? "disabled=\"disabled\"" : "" %>
-                onclick="toggleFavorite('<%= comicEntry.id %>')"
+                onclick="toggleFavorite('<%= comicEntryId %>')"
             >
         </td>
         <% if (user.getPrivileges() == 2) { %>
         <td>
-            <a href="${pageContext.request.contextPath}?page=edit&id=<%= comicEntry.id %>">Edit</a>
+            <a href="${pageContext.request.contextPath}?page=edit&id=<%= comicEntryId %>">Edit</a>
         </td>
         <% } %>
     </tr>

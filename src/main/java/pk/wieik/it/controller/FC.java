@@ -114,7 +114,7 @@ public class FC extends HttpServlet {
             int id = Integer.parseInt(idStr);
             int year = Integer.parseInt(yearStr);
 
-            Comic comic = new Comic(id, title, author, year, 2024);
+            Comic comic = new Comic(title, author, year, 2024);
             comicsEntries.set(id, comic);
         }
 
