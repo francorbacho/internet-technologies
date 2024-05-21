@@ -9,11 +9,8 @@
         session.setAttribute("user", user);
     }
 
-    List<Comic> comicsEntries = (List<Comic>) session.getAttribute("comics");
-    if (comicsEntries == null) {
-        comicsEntries = Comic.initializeDb();
-        session.setAttribute("comics", comicsEntries);
-    }
+    ServletContext context = request.getServletContext();
+    List<Comic> comicsEntries = (List<Comic>) context.getAttribute("comics");
 
     String comicIdStr = request.getParameter("id");
     if (comicIdStr == null || comicIdStr.isEmpty()) {

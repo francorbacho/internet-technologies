@@ -18,7 +18,7 @@ public class FC extends HttpServlet {
 
     public void init() {
         ServletContext context = getServletContext();
-        ArrayList<Comic> comics = new ArrayList<Comic>();
+        List<Comic> comics = Comic.initializeDb();
         context.setAttribute("comics", comics);
     }
 
@@ -38,10 +38,10 @@ public class FC extends HttpServlet {
             session.setAttribute("user", user);
         }
 
-        List<Comic> comics = (List<Comic>) session.getAttribute("comics");
+        List<Comic> comics = (List<Comic>) context.getAttribute("comics");
         if (comics == null) {
             comics = Comic.initializeDb();
-            session.setAttribute("comics", comics);
+            context.setAttribute("comics", comics);
         }
 
         out.close();
@@ -62,10 +62,10 @@ public class FC extends HttpServlet {
             session.setAttribute("user", user);
         }
 
-        List<Comic> comicsEntries = (List<Comic>) session.getAttribute("comics");
+        List<Comic> comicsEntries = (List<Comic>) context.getAttribute("comics");
         if (comicsEntries == null) {
             comicsEntries = Comic.initializeDb();
-            session.setAttribute("comics", comicsEntries);
+            context.setAttribute("comics", comicsEntries);
         }
 
         String page = request.getParameter("page");

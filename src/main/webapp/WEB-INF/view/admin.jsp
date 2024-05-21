@@ -8,11 +8,5 @@
         user = new FCuser();
         session.setAttribute("user", user);
     }
-
-    List<Comic> comicsEntries = (List<Comic>) session.getAttribute("comics");
-    if (comicsEntries == null) {
-        comicsEntries = Comic.initializeDb();
-        session.setAttribute("comics", comicsEntries);
-    }
 %>
 

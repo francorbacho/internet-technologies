@@ -10,10 +10,12 @@
         session.setAttribute("user", user);
     }
 
-    List<Comic> comicsEntries = (List<Comic>) session.getAttribute("comics");
+    ServletContext context = request.getServletContext();
+
+    List<Comic> comicsEntries = (List<Comic>) context.getAttribute("comics");
     if (comicsEntries == null) {
         comicsEntries = Comic.initializeDb();
-        session.setAttribute("comics", comicsEntries);
+        context.setAttribute("comics", comicsEntries);
     }
 %>
 
